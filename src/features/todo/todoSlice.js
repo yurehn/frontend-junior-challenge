@@ -43,11 +43,12 @@ export const todoSlice = createSlice({
     })
     .addCase(updateTodo.fulfilled, (state, action) => {
       state.status = "success";
-      // const { id, ...updatedTodo } = action.payload;
-      // const existingTodo = state.todos.find((todo) => todo.id === id);
-      // if (existingTodo) {
-      //   Object.assign(existingTodo, updatedTodo);
-      // }
+      const { id, checked } = action.payload;
+      const foundTodo = state.todos.find((todo) => todo.id === id);
+
+      if (foundTodo) {
+        foundTodo.checked = checked;
+      }
     })
     .addCase(updateTodo.rejected, (state, action) => {
       state.status = "failed";
@@ -59,7 +60,8 @@ export const todoSlice = createSlice({
     })
     .addCase(deleteTodo.fulfilled, (state, action) => {
       state.status = "success";
-      // state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+      const deletedTodoById = action.meta.arg;
+      state.todos = state.todos.filter((todo) => todo.id !== deletedTodoById);
     })
     .addCase(deleteTodo.rejected, (state, action) => {
       state.status = "failed";

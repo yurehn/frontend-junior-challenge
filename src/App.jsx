@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { getTodos } from "./features/todo/todoApi";
 import TodoList from "./components/TodoList/TodoList";
 import TodoResults from "./components/TodoResults/TodoResult";
+import TodoForm from "components/TodoForm/TodoForm";
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
     <div className="root">
       <TodoList />
       <TodoResults />
+      <TodoForm />
     </div>
   );
 };

@@ -15,18 +15,16 @@ export const addTodo = createAsyncThunk(
   'todos/addTodo',
   async (label) => {
     const response = await axios.post(API_URL, {
-        label,
-        checked: false
-      }
-    );
+      "label": label,
+      "checked": false
+    });
     return response.data;
 });
 
 export const updateTodo = createAsyncThunk(
   'todos/updateTodo',
-  async ({ id, label, checked }) => {
+  async ({ id, checked }) => {
     const response = await axios.patch(`${API_URL}/${id}`, {
-        label,
         checked
       }
     );
@@ -36,6 +34,6 @@ export const updateTodo = createAsyncThunk(
 export const deleteTodo = createAsyncThunk(
   'todos/deleteTodo',
   async (id) => {
-    await axios.delete(`${API_URL}/${id}`);
-    return id;
+    const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data;
 });

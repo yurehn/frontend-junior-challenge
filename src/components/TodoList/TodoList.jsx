@@ -1,29 +1,35 @@
 import "./styles.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TodoListItem from "components/TodoListItem/TodoListItem";
+import { updateTodo, deleteTodo } from '../../features/todo/todoApi';
 
 
 const TodoList = () => {
   const todos = useSelector((state) => state.todos.todos);
+  const dispatch = useDispatch();
 
   const handleDelete = (todoId) => {
-    // Fix an ability to delete task
-    console.log(todoId);
+    dispatch(deleteTodo(todoId));
   };
 
   const toggleCheck = (todoId, isChecked) => {
-    // Fix an ability to toggle task
-    console.log(todoId, isChecked);
+    dispatch(updateTodo({id: todoId, checked: !isChecked}));
   };
 
   return (
     <div className="todo-list">
       <span className="todo-list-title">Things to do:</span>
       <div className="todo-list-content">
-        {/* Fix an ability to render todos */}
         {
           todos.map(({id, label, checked}) => {
-            return <TodoListItem onCheck={toggleCheck} checked={checked} onDelete={handleDelete} label={label}/>
+            return (
+              <TodoListItem
+                onCheck={() => toggleCheck(id, checked)}
+                checked={checked}
+                onDelete={() => handleDelete(id)}
+                label={label}
+              />
+            );
           })
         }
       </div>
