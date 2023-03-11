@@ -1,5 +1,5 @@
-import React from "react";
 import "./styles.css";
+
 
 const TodoListItem = ({ onCheck, checked, onDelete, label }) => (
   <div className="todo-list-item">
