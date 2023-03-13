@@ -1,10 +1,11 @@
-import "./styles.css";
+import './styles.css';
+import { useSelector } from 'react-redux';
 
 
 const TodoResults = () => {
-  // Fix an ability to calculate completed tasks
+  const completedTodos = useSelector((state) => state.todos.completedTodos);
 
-  return <div className="todo-results">Done:</div>;
+  return <div className="todo-results">Done: {completedTodos}</div>;
 };
 
 export default TodoResults;

@@ -1,4 +1,8 @@
 import "./App.css";
+
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getTodos } from "./features/todo/todoApi";
@@ -20,6 +24,7 @@ const App = () => {
       <TodoList />
       <TodoResults />
       <TodoForm />
+      <ToastContainer />
     </div>
   );
 };
