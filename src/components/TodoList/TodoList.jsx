@@ -1,15 +1,17 @@
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import TodoListItem from "components/TodoListItem/TodoListItem";
-import { updateTodo, deleteTodo } from '../../features/todo/todoApi';
+import { updateTodo, deleteTodo } from "../../features/todo/todoApi";
+import Loader from "../Loader/Loader";
 
 
 const TodoList = () => {
-  const {todos} = useSelector((state) => state.todos);
+
+  const { todos, status } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
 
-  const handleDelete = async (todoId) => {
-    dispatch(deleteTodo(todoId)) 
+  const handleDelete = (todoId) => {
+    dispatch(deleteTodo(todoId))
   };
 
   const toggleCheck = (todoId, isChecked) => {
@@ -30,6 +32,7 @@ const TodoList = () => {
               todos.map(({ id, label, checked }) => {
                 return (
                   <TodoListItem
+                    // key={id} //Producto de que la API devuelve el mismo id:6 al crear un TODO, genera problemas cuando hay 2 elementos con la misma key.
                     onCheck={() => toggleCheck(id, checked)}
                     checked={checked}
                     onDelete={() => handleDelete(id)}
@@ -38,6 +41,13 @@ const TodoList = () => {
                 );
               })
             }
+          </div>
+        )
+      }
+      {
+        status === 'loading' && (
+          <div className="todo-list-loaderContainer">
+            <Loader />
           </div>
         )
       }

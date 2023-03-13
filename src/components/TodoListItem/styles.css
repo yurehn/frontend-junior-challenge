@@ -10,6 +10,7 @@
 .todo-list-item-content {
   border-radius: 4px;
   display: flex;
+  width: calc(100% - 42px);
   align-items: center;
   flex-wrap: nowrap;
   padding: 5px 10px 5px 5px;

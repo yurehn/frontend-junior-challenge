@@ -2,7 +2,7 @@ import "./styles.css";
 
 
 const TodoListItem = ({ onCheck, checked, onDelete, label }) => {
-  
+
   return (
     <div className="todo-list-item">
       <div

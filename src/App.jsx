@@ -14,11 +14,11 @@ import TodoForm from "components/TodoForm/TodoForm";
 const App = () => {
 
   const dispatch = useDispatch();
- 
+
   useEffect(() => {
-      dispatch(getTodos());
+    dispatch(getTodos());
   }, [dispatch])
-  
+
   return (
     <div className="root">
       <TodoList />

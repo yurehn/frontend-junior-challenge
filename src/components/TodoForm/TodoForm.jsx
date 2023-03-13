@@ -1,8 +1,7 @@
 import './styles.css';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addTodo } from '../../features/todo/todoApi';
-import { showErrorToast } from '../Toast/toastConfig';
 
 
 const TodoForm = () => {
@@ -12,24 +11,24 @@ const TodoForm = () => {
 
 
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.todos);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
+    
     if (inputValue !== '') {
       dispatch(addTodo(inputValue))
-        .then(() => {
-          setInputValue('');
-        })
-        .catch(() => {
-          showErrorToast(error);
-        });
-
+      setInputValue(''); 
     } else {
       setInputError(true);
     }
   };
+
+  const handleChange = (event) => {
+    if (inputError) {
+      setInputError(false);
+    }
+    setInputValue(event.target.value);
+  }
 
   return (
     <form className="todo-form" onSubmit={handleSubmit}>
@@ -39,7 +38,7 @@ const TodoForm = () => {
           type="text"
           placeholder="Enter new to do"
           value={inputValue}
-          onChange={(event) => setInputValue(event.target.value)}
+          onChange={handleChange}
           onFocus={() => setInputError(false)}
         />
         {

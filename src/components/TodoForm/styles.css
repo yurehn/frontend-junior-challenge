@@ -16,10 +16,18 @@
   padding: 11px;
   font-size: 15px;
   border-radius: 5px;
+  outline: none;
   border: 1px solid #b8b8b8;
 }
-input:focus {
-  border: 2px solid #ff0000;
+
+.todo-form-input:focus {
+  outline: 2px solid black;
+  outline-offset: -1px;
+} 
+
+.todo-form-input.error:focus{
+  outline: 2px solid red;
+  outline-offset: -1px;
 }
 
 .helper-text {

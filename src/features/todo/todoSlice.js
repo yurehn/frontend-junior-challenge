@@ -7,7 +7,6 @@ const initialState = {
   todos: [],
   status: '',
   completedTodos: 0,
-  // error: null,
 }
 
 export const todoSlice = createSlice({
@@ -17,6 +16,9 @@ export const todoSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // getTodo
+      .addCase(getTodos.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(getTodos.fulfilled, (state, action) => {
         state.status = "success";
         state.todos = action.payload;
@@ -24,20 +26,26 @@ export const todoSlice = createSlice({
           return todo.checked ? acc + 1 : acc;
         }, 0);
       })
-      .addCase(getTodos.rejected, (state, action) => {
+      .addCase(getTodos.rejected, (state) => {
         state.status = "failed";
         showErrorToast('Failed to get TODO!')
       })
       // addTodo
+      .addCase(addTodo.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(addTodo.fulfilled, (state, action) => {
         state.status = "success";
         state.todos.push(action.payload);
       })
-      .addCase(addTodo.rejected, (state, action) => {
+      .addCase(addTodo.rejected, (state) => {
         state.status = "failed";
         showErrorToast('Failed to add TODO!')
       })
       // updateTodo
+      .addCase(updateTodo.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(updateTodo.fulfilled, (state, action) => {
         state.status = "success";
         const { id, checked } = action.payload;
@@ -48,11 +56,14 @@ export const todoSlice = createSlice({
           state.completedTodos += checked ? 1 : -1;
         }
       })
-      .addCase(updateTodo.rejected, (state, action) => {
+      .addCase(updateTodo.rejected, (state) => {
         state.status = "failed";
         showErrorToast('Failed to update TODO!')
       })
       // deleteTodo
+      .addCase(deleteTodo.pending, (state) => {
+        state.status = "loading";
+      })
       .addCase(deleteTodo.fulfilled, (state, action) => {
         state.status = "success";
         const deletedTodoById = action.meta.arg;
@@ -65,7 +76,7 @@ export const todoSlice = createSlice({
           state.todos.splice(indexToDelete, 1);
         }
       })
-      .addCase(deleteTodo.rejected, (state, action) => {
+      .addCase(deleteTodo.rejected, (state) => {
         state.status = "failed";
         showErrorToast('Failed to delete TODO!')
       });
